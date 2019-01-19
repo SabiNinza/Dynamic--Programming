@@ -1,0 +1,39 @@
+#include <iostream>
+#include<bits/stdc++.h>
+#define ll long long
+#define mod 100003
+ll dp[102][3][102];
+ll n,x;
+//top down approch
+ll Diwali_Bulb(ll i,ll prev,ll k){
+ //base case
+ if(i==n) {
+     if(k==x) return 1;
+     return 0;
+ }
+ //already cal is done
+ if(dp[i][prev][k]!=-1) return dp[i][prev][k];
+
+ //prev cell is 1 
+ ll ans=0;
+ if(prev==1){
+   ans=ans+Diwali_Bulb(i+1,1,k+1);
+ }else{
+     ans=ans+Diwali_Bulb(i+1,1,k);
+ }
+ ans%=mod;
+ //prev cell is 0
+  ans=ans+Diwali_Bulb(i+1,0,k);
+  ans%=mod;
+  return dp[i][prev][k]=ans;
+}
+using namespace std;
+int main() {
+    memset(dp,-1,sizeof(dp));
+    int t;
+    cin>>t;
+    while(t--){
+        cin>>n>>x;
+        cout<<(Diwali_Bulb(1,0,0)+Diwali_Bulb(1,1,0))<<endl;
+    }
+}
