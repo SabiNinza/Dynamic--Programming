@@ -1,0 +1,25 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+#define mod 10000007
+#define ll long long
+//bottom up approach
+ll Painter_Count(int n,int k){
+    ll dp[n+1];
+    memset(dp,0,sizeof(dp)
+    //base case
+    dp[1]=k;
+    ll s=0,diff=k;
+    for(int i=2;i<=n;i++){
+        s=diff;
+        diff=dp[i-1]*(k-1);
+        diff%=mod;
+        dp[i]=(s+diff)%mod;
+    }
+    return dp[n];
+}
+int main() {
+  int n,k;
+  cin>>n>>k;
+   cout<<Painter_Count(n,k);
+}

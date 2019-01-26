@@ -1,0 +1,50 @@
+#include <iostream>
+#include<climits>
+using namespace std;
+//Through Recursion
+int Egg_drop(int n_e,int f){
+    //base case
+    if(f==0||f==1) return f;
+    if(n_e==1) return f;
+    int ans=INT_MAX;
+    for(int i=1;i<=f;i++){
+        //worst case 
+        int recVal=1+max(Egg_drop(n_e-1,i-1),Egg_drop(n_e,f-i));
+        //minimum trial is our answer
+       if(ans>recVal) ans=recVal;
+    }
+    return ans;
+}
+//through bottom up approach
+int Egg_drop_dp(int n_e,int f){
+  //base case
+  int dp[n_e+1][f+1]={};
+  for(int i=1;i<=n_e;i++) {
+      dp[i][0]=0;
+      dp[i][1]=1;
+  }
+  for(int i=1;i<=f;i++){
+      dp[1][i]=i;
+  }
+  for(int i=2;i<=n_e;i++){
+      for(int j=2;j<=f;j++){
+          dp[i][j]=INT_MAX;
+          for(int p=1;p<=j;p++){
+              int recVal=1+max(dp[i-1][p-1],dp[i][j-p]);
+              dp[i][j]=min(dp[i][j],recVal);
+          }
+      }
+  }
+  for(int i=0;i<=n_e;i++){
+      for(int j=0;j<=f;j++){
+          cout<<dp[i][j]<<" ";
+      }
+      cout<<endl;
+  }
+  return dp[n_e][f];
+}
+int main() {
+    int n,k;
+    cin>>n>>k;
+    cout<<Egg_drop_dp(n,k);
+}

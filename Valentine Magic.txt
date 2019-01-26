@@ -1,0 +1,33 @@
+#include <iostream>
+#include<climits>
+#include<stdio.h>
+#include<bits/stdc++.h>
+using namespace std;
+#define INF 1e18;
+#define ll long long
+ll n,m,A[50001],B[50001],dp[50001][50001];
+//up down approch
+// i is the boy or j is girl
+ll Val_Magic(ll i,ll j){
+ //base case
+ if(i==n) return 0;// paired all boys
+ if(j==m) return INF;
+ if(dp[i][j]!=-1) return dp[i][j];
+ // rec case
+ ll op1=Val_Magic(i+1,j+1)+abs(A[i]-B[j]);
+ ll op2=Val_Magic(i,j+1);
+ return dp[i][j]=min(op1,op2); 
+}
+int main() {
+  memset(dp,-1,sizeof(dp));
+  cin>>n>>m;
+
+  for(int i=0;i<n;i++) cin>>A[i];
+  for(int j=0;j<m;j++) cin>>B[j];
+
+  sort(A,A+n);
+  sort(B,B+m);
+
+  cout<<Val_Magic(0,0)<<endl;
+  return 0;
+}
