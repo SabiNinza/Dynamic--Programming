@@ -1,0 +1,39 @@
+#include <iostream>
+#include<bits/stdc++.h>
+#include<algorithm>
+using namespace std;
+
+long UglyNumber(long n){
+  long dp[n];
+  long i2=0,i3=0,i5=0;
+  long Nxt_M_2=2,Nxt_M_3=3,Nxt_M_5=5;
+  long Nxt_No=1;
+  dp[0]=1;
+    for(long i=1;i<n;i++){
+     Nxt_No=min(Nxt_M_2,min(Nxt_M_3,Nxt_M_5));
+     dp[i]=Nxt_No;
+     if(Nxt_No==Nxt_M_2){
+         i2++;
+         Nxt_M_2=dp[i2]*2;
+     }
+     if(Nxt_No==Nxt_M_3){
+          i3++;
+          Nxt_M_3=dp[i3]*3;
+     }
+     if(Nxt_No==Nxt_M_5){
+        i5++;
+        Nxt_M_5=dp[i5]*5;
+     }
+    }
+    return Nxt_No;
+}
+int main() {
+    int t;
+    cin>>t;
+    while(t--){
+        long n;
+        cin>>n;
+        cout<<UglyNumber(n)<<endl;
+    }
+    return 0;
+}

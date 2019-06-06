@@ -1,0 +1,26 @@
+#include <iostream>
+#include<stack>
+#include<string.h>
+using namespace std;
+int Find_MaxLen(string str){
+    int n=str.length();
+    stack<int> stk;
+    int ans=0;
+    stk.push(-1);
+    for(int i=0;i<n;i++){
+        if(str[i]=='('){
+        stk.push(i);
+        }else{
+            stk.pop();
+        if(!stk.empty()) ans=max(ans,i-stk.top()); 
+        else stk.push(i);
+         
+        }
+    }
+    return ans;
+}
+int main() {
+   string str;
+   cin>>str;
+   cout<<Find_MaxLen(str)<<endl;
+}

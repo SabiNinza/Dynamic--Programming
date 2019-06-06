@@ -1,0 +1,35 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long  long
+bool DoesPatMatch(string str,string pat){
+    ll str_len=str.size();
+    ll pat_len=pat.size();
+    bool dp[str_len+1][pat_len+1]={false};
+    //base case
+    dp[0][0]=true;
+    for(int i=1;i<=str_len;i++)dp[i][0]=false;  //pattern null
+    for(int i=1;i<=pat_len;i++){
+        if(pat[i-1]=='*')
+         dp[0][i]=dp[0][i-1];
+    }
+    for(ll i=1;i<=str_len;i++){
+        for(ll j=1;j<=pat_len;j++){
+            if(pat[j-1]=='*'){
+               dp[i][j]=dp[i][j-1]||dp[i-1][j];
+            }
+            else if(pat[j-1]=='?'||pat[j-1]==str[i-1]){
+                 dp[i][j]=dp[i-1][j-1];
+            }else{
+                 dp[i][j]=false;
+            }
+        }
+    }
+    return dp[str_len][pat_len];
+}
+int main() {
+    string str;
+    string pat;
+    cin>>str>>pat;
+    DoesPatMatch(str,pat)?cout<<"MATCHED":cout<<"NOT MATCHED";
+}

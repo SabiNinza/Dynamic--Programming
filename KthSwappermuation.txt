@@ -1,0 +1,31 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+void KthSwap(int *arr,int n,ll k){
+    int pos[n+1]={0};
+    for(int i=0;i<n;i++) pos[arr[i]]=i;
+    for(int i=0;i<n&&k>0;i++){
+       if(arr[i]==n-i) continue;
+        //postion of ith largest element;
+        int temp=pos[n-i];
+    //swap the position of element
+     pos[arr[i]]=pos[n-i];
+     pos[n-i]=i;
+     //swap element in the array
+     swap(arr[temp],arr[i]);
+     k--;
+    }
+    return;
+}
+int main() {
+    int n;
+    ll k;
+    cin>>n>>k;
+    int arr[n];
+    for(ll i=0;i<n;i++) cin>>arr[i];
+     KthSwap(arr,n,k);
+     for(ll i=0;i<n;i++){
+         cout<<arr[i]<<" ";
+     }
+}

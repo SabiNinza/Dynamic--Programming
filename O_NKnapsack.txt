@@ -1,0 +1,23 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+int KnapSack_Dp(int *Val,int *Wt,int n,int W){
+    int dp[W+1];
+    memset(dp,0,sizeof(dp));
+    for(int i=0;i<=W;i++){
+        for(int j=0;j<n;j++){
+            if(Wt[j]<=i){
+            dp[i]=max(dp[i],dp[i-Wt[j]]+Val[j]);
+            }
+        }
+    }
+    return dp[W];
+}
+int main() {
+    int n,cap;
+    cin>>n>>cap;
+    int Wt[n],Val[n];
+    for(int i=0;i<n;i++) cin>>Wt[i];
+    for(int i=0;i<n;i++) cin>>Val[i];
+    cout<<KnapSack_Dp(Val,Wt,n,cap)<<endl;
+}

@@ -1,0 +1,37 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+#define ll long long
+int main()
+{
+    ll t;
+    cin>>t;
+    while(t--)
+    {
+        ll n;
+        cin>>n;
+        vector<ll> C(n),L(n),M(n);
+        for(ll i=0;i<n;i++)
+            {
+                cin>>C[i];
+                if(i==0)
+                {
+                    M[i]=C[i];
+                }
+                else
+                {
+                    M[i]=min(M[i-1],C[i]);
+                }
+            }
+        for(ll i=0;i<n;i++)
+            cin>>L[i];
+        ll final_cost=0;
+        ll petrol_available=0;
+        for(ll i=0;i<n;i++)
+        {
+            final_cost+=L[i]*M[i];
+        }
+        cout<<final_cost<<"\n";
+
+    }
+}

@@ -1,0 +1,21 @@
+#include <iostream>
+using namespace std;
+int CountBinary(int n){
+    int a[n]={0};
+    int b[n]={0};
+    a[0]=1,b[0]=1;
+    for(int i=1;i<n;i++){
+        a[i]=a[i-1]+b[i-1];;
+        b[i]=a[i-1];
+    }
+   return a[n-1]+b[n-1];
+}
+int main() {
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        cout<<CountBinary(n)<<endl;
+    }
+}
